@@ -1,0 +1,24 @@
+﻿field_name,field_definition,field_instructions
+hospital_name,Name of hospital,
+lab_name,Name of lab,
+physician_name,Name of physician,Return first name and last name as a single string value
+has_serum_specimen,Whether a serum specimen was collected,Return Yes or No
+serum_receiving_date,Date in which serum specimen was received,Return the date in this format: MM/DD/YYY
+serum_reporting_date,Date in which serum specimen was reported,Return the date in this format: MM/DD/YYY
+serum_turnaround_time,Turnaround time (TAT) for serum specimen,
+bilirubin_total,Total bilirubin level,
+bilirubin_total_unit,Total bilirubin unit,
+bilirubin_level,"High, low, or normal total bilirubin level","Return H, L, or N"
+bilirubin_conjugated,Conjugated bilirubin level,
+bilirubin_conjugated_unit,Conjugated bilirubin unit,
+bilirubin_conjugated_level,"High, low, or normal conjugated bilirubin level","Return H, L, or N"
+bilirubin_unconjugated,Unconjugated bilirubin level,
+bilirubin_unconjugated_unit,Unconjugated bilirubin unit,
+bilirubin_unconjugated_level,"High, low, or normal unconjugated bilirubin level","Return H, L, or N"
+has_blood_specimen,Whether a blood specimen was collected,Return Yes or No
+blood_receiving_date,Date in which blood specimen was received,Return the date in this format: MM/DD/YYY
+blood_reporting_date,Date in which blood specimen was reported,Return the date in this format: MM/DD/YYY
+blood_turnaround_time,Turnaround time (TAT) for blood specimen,
+ammonia,Ammonia level,
+ammonia_unit,Ammonia unit,
+ammonia_level,"High, low, or normal ammonia level","Return H, L, or N"
