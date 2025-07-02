@@ -13,7 +13,7 @@ class BDAProcessor:
         self.bda_runtime_client = boto3.client("bedrock-data-automation-runtime")
         self.sts_client = boto3.client('sts')
         self.account_id = self.sts_client.get_caller_identity()['Account']
-        self.results_output_path = "output/results/bda_results/"
+        self.results_output_path = "output/"
         self.file_name = None
 
 
@@ -24,30 +24,18 @@ class BDAProcessor:
             blueprintStage="LIVE",
             schema=json.dumps(blueprint_schema)
         )
-        return response["blueprint"]["blueprintArn"]
+        blueprint_arn = response["blueprint"]["blueprintArn"]
+        print("Successfully created blueprint")
+        return blueprint_arn
     
-
-    def create_bda_project(self, project_name: str) -> str:
-        standard_output_config =  {
-            "document": {
-                "extraction": {
-                "granularity": {"types": ["DOCUMENT","PAGE", "ELEMENT","LINE","WORD"]},
-                "boundingBox": {"state": "ENABLED"}
-                },
-                "generativeField": {"state": "ENABLED"},
-                "outputFormat": {
-                "textFormat": {"types": ["PLAIN_TEXT", "MARKDOWN", "HTML", "CSV"]},
-                "additionalFileFormat": {"state": "ENABLED"}
-                }
-            }
-        }
-        response = self.bda_client.create_data_automation_project(
-            projectName=project_name,
-            projectDescription="BDA project for Mayo Clinic AI Summit demo",
-            projectStage='LIVE',
-            standardOutputConfiguration=standard_output_config
+    def update_blueprint(self, blueprint_arn: str, blueprint_schema: dict) -> str:
+        response = self.bda_client.update_blueprint(
+            blueprintArn=blueprint_arn,
+            schema=json.dumps(blueprint_schema)
         )
-        return response["projectArn"]
+        blueprint_arn = response["blueprint"]["blueprintArn"]
+        print("Successfully updated blueprint")
+        return blueprint_arn
     
 
     def upload_to_s3(self, file_path: str) -> None:
@@ -92,7 +80,7 @@ class BDAProcessor:
             body = json.loads(response['Body'].read().decode('utf-8'))
             results = body["inference_result"]
             df = pd.DataFrame(results.items(), columns=['field_name', 'bda_value'])
-            df.to_csv(f"{self.results_output_path}{self.file_name}_bda_results.csv", index=False)
+            df.to_csv(f"{self.results_output_path}proccesed_{self.file_name}.csv", index=False)
             return df
         except Exception as e:
             print("Document extraction is still in progress. Please try again later.")
