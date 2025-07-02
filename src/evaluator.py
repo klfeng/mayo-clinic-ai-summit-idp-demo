@@ -13,7 +13,7 @@ class Evaluator:
     def create_comparison_df(self, ground_truth_path: str, results_path: str) -> pd.DataFrame:
         ground_truth_df = pd.read_csv(ground_truth_path)
         llm_results_df = pd.read_csv(results_path)
-        comparison_df = ground_truth_df.merge(llm_results_df, on="field_name", how="left")
+        comparison_df = llm_results_df.merge(ground_truth_df, on="field_name", how="left")
         return comparison_df
     
     
