@@ -1,0 +1,24 @@
+﻿field_name,field_value
+hospital_name,Sarvodaya Hospital
+lab_name,Diagnostic Point Pathology Labs 
+physician_name,Atul Kapila
+has_serum_specimen,Yes
+serum_receiving_date,Unknown
+serum_reporting_date,Unknown
+serum_turnaround_time,Unknown
+bilirubin_total,9.42
+bilirubin_total_unit,mg/dl
+bilirubin_level,H
+bilirubin_conjugated,7.79
+bilirubin_conjugated_unit,mg/dl
+bilirubin_conjugated_level,H
+bilirubin_unconjugated,1.63
+bilirubin_unconjugated_unit,mg/dl
+bilirubin_unconjugated_level,H
+has_blood_specimen,Yes
+blood_receiving_date,4/18/25
+blood_reporting_date,4/18/25
+blood_turnaround_time,3 Hours 2 Minutes
+ammonia,119.8
+ammonia_unit,ug/dl
+ammonia_level,H
