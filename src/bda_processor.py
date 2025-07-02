@@ -2,13 +2,15 @@ import boto3
 import json
 import pandas as pd
 import os
+import sagemaker
 
 class BDAProcessor:
     def __init__(self):
+        self.session = sagemaker.Session()
+        self.default_bucket = self.session.default_bucket()
         self.s3_client = boto3.client("s3")
         self.bda_client = boto3.client("bedrock-data-automation")
         self.bda_runtime_client = boto3.client("bedrock-data-automation-runtime")
-        self.bucket_name = "mayo-clinic-ai-summit-demo-files"
         self.sts_client = boto3.client('sts')
         self.account_id = self.sts_client.get_caller_identity()['Account']
         self.results_output_path = "output/results/bda_results/"
@@ -49,14 +51,14 @@ class BDAProcessor:
     
 
     def upload_to_s3(self, file_path: str) -> None:
-        s3_response = self.s3_client.list_objects_v2(Bucket=self.bucket_name, Prefix="input_files")
+        s3_response = self.s3_client.list_objects_v2(Bucket=self.default_bucket, Prefix="input_files")
         current_files = []
         for obj in s3_response.get("Contents", []):
             current_files.append(obj["Key"])
         if file_path not in current_files:
             self.s3_client.upload_file(
                 Filename=file_path,
-                Bucket=self.bucket_name,
+                Bucket=self.default_bucket,
                 Key=file_path
             )
     
@@ -66,10 +68,10 @@ class BDAProcessor:
         self.upload_to_s3(file_path=file_path)
         response = self.bda_runtime_client.invoke_data_automation_async(
             inputConfiguration={
-                's3Uri': f"s3://{self.bucket_name}/{file_path}"
+                's3Uri': f"s3://{self.default_bucket}/{file_path}"
             },
             outputConfiguration={
-                's3Uri': f"s3://{self.bucket_name}/bda_results"
+                's3Uri': f"s3://{self.default_bucket}/bda_results"
             },
             blueprints=[
                 {
@@ -82,15 +84,18 @@ class BDAProcessor:
     
 
     def get_data_automation_results(self, job_id: str) -> pd.DataFrame:
-        response = self.s3_client.get_object(
-            Bucket=self.bucket_name,
-            Key=f"bda_results/{job_id}/0/custom_output/0/result.json"
-        )
-        body = json.loads(response['Body'].read().decode('utf-8'))
-        results = body["inference_result"]
-        df = pd.DataFrame(results.items(), columns=['field_name', 'bda_value'])
-        df.to_csv(f"{self.results_output_path}{self.file_name}_bda_results.csv", index=False)
-        return df
+        try:
+            response = self.s3_client.get_object(
+                Bucket=self.default_bucket,
+                Key=f"bda_results/{job_id}/0/custom_output/0/result.json"
+            )
+            body = json.loads(response['Body'].read().decode('utf-8'))
+            results = body["inference_result"]
+            df = pd.DataFrame(results.items(), columns=['field_name', 'bda_value'])
+            df.to_csv(f"{self.results_output_path}{self.file_name}_bda_results.csv", index=False)
+            return df
+        except Exception as e:
+            print("Document extraction is still in progress. Please try again later.")
 
     
 
