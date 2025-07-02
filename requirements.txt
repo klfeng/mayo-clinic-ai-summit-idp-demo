@@ -1,3 +1,0 @@
-amazon-textract-response-parser
-fuzzywuzzy 
-python-Levenshtein
