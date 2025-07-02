@@ -1,6 +1,7 @@
 # Convert unstructured data to structured data using Amazon Bedrock Data Automation
 
 ## Step 1: Download this repository to your computer and unzip the file
+![Alt text](src/readme_images/download_repo.png)
 
 <br>
 
