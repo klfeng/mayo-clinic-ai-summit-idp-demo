@@ -5,7 +5,7 @@
 
 <br>
 
-## Step 2: Navigate to the AWS Workshop [here](https://catalog.us-east-1.prod.workshops.aws/join?access-code=7079-043f61-48) and open the AWS Console
+## Step 2: Navigate to the AWS Workshop [here](https://catalog.us-east-1.prod.workshops.aws/join?access-code=617a-086d38-16) and open the AWS Console
 ![Alt text](src/readme_images/open_aws_console.png)
 
 <br>
