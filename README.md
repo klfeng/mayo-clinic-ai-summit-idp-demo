@@ -6,7 +6,7 @@
 <br>
 
 ## Step 2: Request access for Claude 3.5 Haiku
-#### 3a. Navigate to Amazon Bedrock using the search bar
+#### 2a. Navigate to Amazon Bedrock using the search bar
 ![Alt text](src/readme_images/search_for_bedrock.png)
 
 <br>
