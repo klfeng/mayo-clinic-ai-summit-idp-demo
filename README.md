@@ -42,11 +42,13 @@
 
 <br>
 
-##### 3d. Select Git
+##### 3d. Select Git (located in the top header) and click on "Git Clone Repo"
+![Alt text](src/readme_images/git_clone.png)
 
 <br>
 
-##### 3e. Copy the GitHub URL into 
+##### 3e. Copy and paste the GitHub URL (https://github.com/klfeng/mayo-clinic-ai-summit-idp-demo) and click on "Clone" 
+![Alt text](src/readme_images/paste_repo_and_clone.png)
 
 <br>
 
