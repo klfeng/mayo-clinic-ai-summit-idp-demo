@@ -78,7 +78,7 @@ class BDAProcessor:
             body = json.loads(response['Body'].read().decode('utf-8'))
             results = body["inference_result"]
             df = pd.DataFrame(results.items(), columns=['field_name', 'bda_value'])
-            df.to_csv(f"{self.results_output_path}proccesed_{self.file_name}.csv", index=False)
+            df.to_csv(f"{self.results_output_path}processed_{self.file_name}.csv", index=False)
             return df
         except Exception as e:
             print("Document extraction is still in progress. Please try again later.")
